@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maheen's Enchanted Garden</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;1,400&family=Lora:ital@1&display=swap');
+
+        body {
+            margin: 0;
+            overflow: hidden; 
+            background-color: #000;
+            color: #fff;
+            height: 100vh;
+            font-family: 'Lora', serif;
+            transition: background-color 3s ease;
+        }
+
+        /* THE MOON */
+        .moon-container {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 2s ease-in-out;
+            z-index: 50;
+            cursor: pointer;
+        }
+
+        .moon {
+            width: 120px; height: 120px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 60px 20px rgba(0, 210, 255, 0.4);
+            animation: moonPulse 4s infinite alternate;
+        }
+
+        body.lit #click-prompt { opacity: 0; pointer-events: none; }
+        body.lit .moon-container {
+            top: 40px; right: 40px; left: auto;
+            transform: translate(50%, -50%) scale(0.4);
+        }
+
+        @keyframes moonPulse {
+            0% { box-shadow: 0 0 60px 10px rgba(188, 19, 254, 0.3); }
+            100% { box-shadow: 0 0 90px 30px rgba(0, 210, 255, 0.6); }
+        }
+
+        /* FIREFLIES */
+        .firefly {
+            position: fixed;
+            width: 4px; height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fff, 0 0 20px #bc13fe;
+            animation: roam var(--d) infinite linear;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        @keyframes roam {
+            0% { transform: translate(0, 0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)); opacity: 0; }
+        }
+
+        /* GARDEN SCENE */
+        .garden-scene {
+            opacity: 0; pointer-events: none;
+            transition: opacity 3s ease;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        body.lit { background: radial-gradient(circle at top, #1a1a2e, #16213e, #000); }
+        body.lit .garden-scene { opacity: 1; pointer-events: auto; }
+
+        /* FEED PAGE */
+        #memory-page {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 100; display: none; overflow-y: scroll; 
+            background: #0f0f1a;
+            background-image: radial-gradient(circle at 0% 0%, rgba(188, 19, 254, 0.2), transparent 45%);
+        }
+
+        #memory-page.active { display: block; opacity: 1; }
+
+        .feed-container {
+            max-width: 1200px; margin: 0 auto; padding: 100px 10px;
+            column-count: 1; column-gap: 1em;
+        }
+        @media (min-width: 768px) { .feed-container { column-count: 2; } }
+        @media (min-width: 1024px) { .feed-container { column-count: 3; } }
+
+        .memory-card {
+            display: inline-block; width: 100%; margin-bottom: 1.5em;
+            padding: 25px; background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px; border-left: 4px solid #bc13fe;
+            break-inside: avoid; transition: 0.4s ease;
+        }
+        .memory-card:hover { transform: scale(1.03); background: rgba(255, 255, 255, 0.07); }
+
+        .poem-title { font-family: 'Playfair Display', serif; color: #ffcccc; font-size: 1.4rem; margin-bottom: 10px; }
+        .poem-content { font-style: italic; color: #ddd; line-height: 1.8; white-space: pre-line; }
+
+        .footer-sig { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #bc13fe; padding: 100px 0; text-align: center; }
+    </style>
+</head>
+<body id="main-body">
+
+    <div id="firefly-container"></div>
+
+    <div class="moon-container" onclick="lightUpWorld()">
+        <div class="moon"></div>
+        <div id="click-prompt" class="absolute -bottom-16 left-1/2 -translate-x-1/2 text-white text-sm font-bold animate-pulse">Click to Awaken</div>
+    </div>
+
+    <div class="garden-scene" id="garden-scene">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-11/12">
+            <h1 class="font-['Playfair_Display'] text-6xl text-white mb-6">Happy Birthday Maheen</h1>
+            <p class="text-xl italic text-blue-200 mb-10">🎉✨ Happy Birthday, Maheen Farooq! ✨🎉
+
+Today isn’t just another day—it’s your day, the day the world got a little brighter because you came into it. I hope you feel all the love, joy, and magic surrounding you, because someone as incredible as you deserves nothing less than the universe wrapped up in a big, sparkling bow.
+
+Maheen, you have this rare way of lighting up every room you enter. Your laughter is infectious, your heart is enormous, and your presence makes life feel lighter, happier, and full of endless possibilities. On your birthday, I wish you countless moments that make your heart race with happiness, dreams that keep growing bigger and brighter, and memories that make you smile every single time you think of them.
+
+May this year bring you so many adventures that you’ll need a whole new scrapbook just to keep track of them. May you find success in everything you pursue, love that fills every corner of your soul, and happiness that sticks around longer than any fleeting moment. I hope you never stop being the amazing, inspiring, and beautiful person you are inside and out.
+
+So today, let the world celebrate you, Maheen—the wonderful person who makes life sweeter, brighter, and just a little more magical. May laughter, love, and happiness follow you wherever you go, and may every step you take lead you to even greater things than you ever imagined.
+
+Here’s to another year of epic memories, unforgettable adventures, and endless love. Never forget how special you are, because the world is so much better with you in it. Keep shining, keep dreaming, and keep being unapologetically you.
+
+Happy Birthday, Maheen Farooq! 🥳🎂💖 Let this year be your best one yet—filled with all the magic, wonder, and love you truly deserve! 🌟✨</p>
+            <button onclick="openFeed()" class="px-8 py-4 bg-[#bc13fe] text-white font-bold rounded-full hover:shadow-[0_0_30px_#bc13fe] transition">Open Your Galaxy</button>
+        </div>
+    </div>
+
+    <div id="memory-page">
+        <div class="feed-container" id="feed-container"></div>
+        <div class="footer-sig">From Meerab Amjad</div>
+    </div>
+
+    <script>
+        // Memory Pieces based on your 20 points
+        const blocks = [
+            "We met in Class Four, a small seed sown,\nA friendship that has beautifully grown.",
+            "You get so shy when you say 'I love you',\nA crimson blush that's pure and true.",
+            "You think there's no one standing by your side,\nBut in my heart, you'll always find a place to hide.",
+            "The friend you lost in that tragic way,\nStill haunts the quiet of your day.",
+            "You cannot look me in my eyes, I wonder why,\nIs it the secrets of the earth or of the sky?",
+            "You feel 'Alone Pt 2' defines your soul,\nBut I am here to make your spirit whole.",
+            "I want to tell you that you're not alone,\nThe strongest bond I've ever known.",
+            "I wish you a happy life, full of light,\nWhere every shadow turns to something bright.",
+            "I hurt you bad on that fourth of October,\nA memory that makes my heart feel sober.",
+            "Even in pain, you wrote for me that day,\n'The Galaxy of My Life' cleared my clouds away.",
+            "Unwavering love is what I hold for you,\nA loyalty that's deep and always true.",
+            "You gave your heart to me, a gift so rare,\nA treasure held with the utmost care.",
+            "Grading stole the dreams you held so high,\nBut your brilliance still lights up the sky.",
+            "I want you to stay happy, come what may,\nAnd find a reason to smile every single day.",
+            "When I was depressed and changed my DP,\nYou wrote a poem just to rescue me.",
+            "You are the only friend I truly call my own,\nThe kindest soul that I have ever known.",
+            "The days spent without you feel hollow and wide,\nLike a lonely shore without the rising tide.",
+            "When we have a fight, my world turns to gray,\nWaiting for the words to wash the hurt away.",
+            "You are the best part of my life, it's clear,\nI'm blessed whenever you are standing near.",
+            "Happy Birthday Maheen, my guiding star,\nI love you exactly for who you are."
+        ];
+
+        const titles = [
+            "The Class Four Spark", "Crimson Confessions", "The Silent Shelter", "Echoes of Loss", 
+            "Hidden Gazes", "Melody of the Soul", "Unseen Presence", "Wishes in the Dark", 
+            "October's Shadow", "Galactic Gratitude", "Unwavering Vows", "The Gifted Heart", 
+            "Rising from Dreams", "Eternal Joy", "The Rescue Verse", "Soul's Only Mirror", 
+            "Hollow Absence", "Mending the Rift", "Life's Best Chapter", "Celestial Celebration",
+            "Midnight Whispers", "The Invisible String", "Morning Star", "Healing Rhythms",
+            "The Rose and the Thorn", "Timeless Classmates", "The Unspoken Bond", "Gravity of Love",
+            "Stardust Memories", "The Calm and the Storm", "October's Forgiveness", "Dreamer's Ascent",
+            "The Safe Harbor", "Verse of Redemption", "Shy Affection", "Class Four Gold",
+            "The Solitary Path", "Shared Constellations", "The Heart's Keeper", "The Birthday Prayer",
+            "Reflections of Us", "The Only Path", "Woven Destinies", "The Anchor's Weight",
+            "October’s Lessons", "The Galaxy Within", "Dreams Reclaimed", "Laughter's Echo",
+            "The Final Promise", "Beyond the Horizon"
+        ];
+
+        function lightUpWorld() {
+            document.getElementById('main-body').classList.add('lit');
+            createFireflies();
+        }
+
+        function createFireflies() {
+            const container = document.getElementById('firefly-container');
+            for (let i = 0; i < 40; i++) {
+                const f = document.createElement('div');
+                f.className = 'firefly';
+                f.style.left = Math.random() * 100 + 'vw';
+                f.style.top = Math.random() * 100 + 'vh';
+                f.style.setProperty('--x', (Math.random() * 400 - 200) + 'px');
+                f.style.setProperty('--y', (Math.random() * 400 - 200) + 'px');
+                f.style.setProperty('--d', (Math.random() * 5 + 5) + 's');
+                container.appendChild(f);
+            }
+        }
+
+        function openFeed() {
+            document.getElementById('memory-page').classList.add('active');
+            const container = document.getElementById('feed-container');
+            
+            for (let i = 0; i < 50; i++) {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                
+                // Rotational selection to ensure uniqueness
+                let s1 = blocks[i % 20];
+                let s2 = blocks[(i + 4) % 20];
+                let s3 = blocks[(i + 9) % 20];
+                let s4 = blocks[(i + 15) % 20];
+
+                card.innerHTML = `
+                    <div class="poem-title">${titles[i]}</div>
+                    <div class="poem-content">${s1}\n${s2}\n\n${s3}\n${s4}</div>
+                `;
+                container.appendChild(card);
+            }
+        }
+    </script>
+</body>
+</html>
